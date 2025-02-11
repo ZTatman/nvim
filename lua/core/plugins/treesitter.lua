@@ -26,6 +26,7 @@ require("nvim-treesitter.configs").setup({
 		"java",
 		"javascript",
 		"json",
+        "jsdoc",
 		"lua",
 		"markdown",
 		"markdown_inline",
@@ -35,20 +36,8 @@ require("nvim-treesitter.configs").setup({
 		"typescript",
 		"vimdoc",
 		"vue",
-		"yaml",
-	},
-	-- autotag = {
-	-- 	enable = true,
-	-- },
-	-- incremental_selection = {
-	--     enable = true,
-	--     keymaps = {
-	--         init_selection = "<C-space>",
-	--         node_incremental = "<S-space>",
-	--         scope_incremental = false,
-	--         node_decrimental = "<BS>"
-	--     }
-	-- }
+		"yaml"
+	}
 })
 
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
