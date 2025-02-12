@@ -110,18 +110,18 @@ local overrides = function(colors)
             bg = p.sumiInk3
         },
         -- Floating windows
-        NormalFloat = {
-            bg = "none",
-        },
-        FloatBorder = {
-            fg = theme.ui.float.fg_border,
-            bg = "none",
-        },
-        FloatTitle = {
-            fg = p.crystalBlue,
-            bold = true,
-            bg = "none",
-        },
+        -- NormalFloat = {
+        --     bg = "none",
+        -- },
+        -- FloatBorder = {
+        --     fg = theme.ui.float.fg_border,
+        --     bg = "none",
+        -- },
+        -- FloatTitle = {
+        --     fg = p.crystalBlue,
+        --     bold = true,
+        --     bg = "none",
+        -- },
         -- Save an hlgroup with dark background and dimmed foreground
         -- so that you can use it where your still want darker windows.
         -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
