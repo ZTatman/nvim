@@ -193,7 +193,7 @@ return {
     },
   },
 
-  -- Use nvim-cmp instead of blink.cmp
+  -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
