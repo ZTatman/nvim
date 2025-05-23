@@ -4,10 +4,9 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
     opts = {
       dashboard = {
-        enabled = true
+        enabled = true,
       },
       notifier = {
         enabled = true,
@@ -19,13 +18,13 @@ return {
       word_ = {
         enabled = true,
         config = {
-          debounce = 200,            -- time in ms to wait before updating
-          notify_jump = false,       -- show a notification when jumping
-          notify_end = true,         -- show a notification when reaching the end
-          foldopen = true,           -- open folds after jumping
-          jumplist = true,           -- set jump point before jumping
+          debounce = 200, -- time in ms to wait before updating
+          notify_jump = false, -- show a notification when jumping
+          notify_end = true, -- show a notification when reaching the end
+          foldopen = true, -- open folds after jumping
+          jumplist = true, -- set jump point before jumping
           modes = { "n", "i", "c" }, -- modes to show references
-          filter = function(buf)     -- what buffers to enable `snacks.words`
+          filter = function(buf) -- what buffers to enable `snacks.words`
             return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
           end,
         },
@@ -45,19 +44,20 @@ return {
           },
           -- what buffers to animate
           filter = function(buf)
-            return vim.g.snacks_scroll ~= false and vim.b[buf].snacks_scroll ~= false and
-                vim.bo[buf].buftype ~= "terminal"
+            return vim.g.snacks_scroll ~= false
+              and vim.b[buf].snacks_scroll ~= false
+              and vim.bo[buf].buftype ~= "terminal"
           end,
-        }
+        },
       },
       zen = {
         enabled = true,
         config = {
           width = 120,
           height = 30,
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
   -- NvimTree
@@ -121,55 +121,55 @@ return {
     "lewis6991/gitsigns.nvim",
     event = "BufReadPre",
     opts = {
-      signs                        = {
-        add          = { text = '┃' },
-        change       = { text = '┃' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked    = { text = '┆' },
+      signs = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
       },
-      signs_staged                 = {
-        add          = { text = '┃' },
-        change       = { text = '┃' },
-        delete       = { text = '_' },
-        topdelete    = { text = '‾' },
-        changedelete = { text = '~' },
-        untracked    = { text = '┆' },
+      signs_staged = {
+        add = { text = "┃" },
+        change = { text = "┃" },
+        delete = { text = "_" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┆" },
       },
-      signs_staged_enable          = true,
-      signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
-      numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
-      linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
-      word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
-      watch_gitdir                 = {
-        follow_files = true
+      signs_staged_enable = true,
+      signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+      numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+      word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+      watch_gitdir = {
+        follow_files = true,
       },
-      auto_attach                  = true,
-      attach_to_untracked          = false,
-      current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-      current_line_blame_opts      = {
+      auto_attach = true,
+      attach_to_untracked = false,
+      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
         delay = 1000,
         ignore_whitespace = true,
         virt_text_priority = 100,
         use_focus = true,
       },
-      current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
-      sign_priority                = 6,
-      update_debounce              = 100,
-      status_formatter             = nil,   -- Use default
-      max_file_length              = 40000, -- Disable if file is longer than this (in lines)
-      preview_config               = {
+      current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
+      sign_priority = 6,
+      update_debounce = 100,
+      status_formatter = nil, -- Use default
+      max_file_length = 40000, -- Disable if file is longer than this (in lines)
+      preview_config = {
         -- Options passed to nvim_open_win
-        border = 'single',
-        style = 'minimal',
-        relative = 'cursor',
+        border = "single",
+        style = "minimal",
+        relative = "cursor",
         row = 0,
-        col = 1
+        col = 1,
       },
-      on_attach                    = function(buffer)
+      on_attach = function(buffer)
         local gs = package.loaded.gitsigns
 
         local function map(mode, l, r, desc)
@@ -198,22 +198,22 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-buffer",           -- Buffer completions
-      "hrsh7th/cmp-path",             -- Path completions
-      "hrsh7th/cmp-nvim-lsp",         -- LSP completions
-      "hrsh7th/cmp-nvim-lua",         -- Lua completions
-      "saadparwaiz1/cmp_luasnip",     -- Snippet completions
-      "L3MON4D3/LuaSnip",             -- Snippet engine
+      "hrsh7th/cmp-buffer", -- Buffer completions
+      "hrsh7th/cmp-path", -- Path completions
+      "hrsh7th/cmp-nvim-lsp", -- LSP completions
+      "hrsh7th/cmp-nvim-lua", -- Lua completions
+      "saadparwaiz1/cmp_luasnip", -- Snippet completions
+      "L3MON4D3/LuaSnip", -- Snippet engine
       "rafamadriz/friendly-snippets", -- Snippet collection
     },
     config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
+      local cmp = require "cmp"
+      local luasnip = require "luasnip"
 
       -- Load snippets
       require("luasnip.loaders.from_vscode").lazy_load()
 
-      cmp.setup({
+      cmp.setup {
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -249,7 +249,7 @@ return {
             return vim_item
           end,
         },
-        mapping = cmp.mapping.preset.insert({
+        mapping = cmp.mapping.preset.insert {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -272,21 +272,21 @@ return {
             end
           end, { "i", "s" }),
 
-          ["<CR>"] = cmp.mapping.confirm({
+          ["<CR>"] = cmp.mapping.confirm {
             select = true,
             behavior = cmp.ConfirmBehavior.Replace,
-          }),
+          },
 
           ["<C-Space>"] = cmp.mapping.complete(),
-        }),
-        sources = cmp.config.sources({
+        },
+        sources = cmp.config.sources {
           { name = "nvim_lsp" },
           { name = "nvim_lua" },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
-        }),
-      })
+        },
+      }
     end,
   },
 
@@ -325,7 +325,7 @@ return {
       hover = {
         max_width = 0.6,
         max_height = 0.6,
-        open_link = 'gx',
+        open_link = "gx",
       },
       diagnostic = {
         keys = {
@@ -352,38 +352,38 @@ return {
 
   -- Rustaceanvim
   {
-    'mrcjkb/rustaceanvim',
-    version = '^6', -- Recommended
-    lazy = false,   -- This plugin is already lazy
+    "mrcjkb/rustaceanvim",
+    version = "^6", -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
 
   -- Crates
   {
-    'saecki/crates.nvim',
+    "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
-    dependencies = { 'hrsh7th/nvim-cmp' },
+    dependencies = { "hrsh7th/nvim-cmp" },
     config = function()
-      require('crates').setup {
+      require("crates").setup {
         completion = {
           cmp = {
-            enabled = true
-          }
-        }
+            enabled = true,
+          },
+        },
       }
 
       -- Set up crates completion source for nvim-cmp specifically for Cargo.toml files
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "toml",
         callback = function()
-          local cmp = require("cmp")
-          cmp.setup.buffer({
-            sources = cmp.config.sources({
+          local cmp = require "cmp"
+          cmp.setup.buffer {
+            sources = cmp.config.sources {
               { name = "crates" },
               { name = "nvim_lsp" },
               { name = "buffer" },
-            })
-          })
-        end
+            },
+          }
+        end,
       })
     end,
   },
@@ -397,30 +397,55 @@ return {
 
   -- treesj
   {
-    'Wansmer/treesj',
-    keys = { '<space>m', '<space>j', '<space>s' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' }, -- if you install parsers with `nvim-treesitter`
+    "Wansmer/treesj",
+    keys = { "<space>m", "<space>j", "<space>s" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you install parsers with `nvim-treesitter`
     config = function()
-      require('treesj').setup({ --[[ your config ]] })
+      require("treesj").setup { --[[ your config ]]
+      }
     end,
   },
 
   -- live preview
   {
-    'brianhuster/live-preview.nvim',
+    "brianhuster/live-preview.nvim",
     event = { "FileType html" },
     dependencies = {
-      'nvim-telescope/telescope.nvim',
+      "nvim-telescope/telescope.nvim",
     },
     config = function()
-      require('livepreview.config').set({
+      require("livepreview.config").set {
         port = 5500,
-        browser = 'default',
+        browser = "default",
         dynamic_root = false,
         sync_scroll = true,
         picker = "telescope",
-      })
+      }
     end,
-  }
+  },
 
+  -- multicursors
+  {
+    "smoka7/multicursors.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvimtools/hydra.nvim",
+    },
+    opts = {
+      hint_config = {
+        float_opts = {
+          border = "rounded",
+        },
+        position = "bottom-right",
+      },
+      generate_hints = {
+        normal = true,
+        insert = true,
+        extend = true,
+        config = {
+          column_count = 1,
+        },
+      },
+    },
+  },
 }

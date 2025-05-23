@@ -1,7 +1,7 @@
 require "nvchad.mappings"
 
 -- add yours here
-local fn = require("functions")
+local fn = require "functions"
 local map = vim.keymap.set
 
 -- map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -26,8 +26,12 @@ map("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>", { desc = "Line 
 map("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>", { desc = "Buffer Diagnostics" })
 
 -- Trouble diagnostics
-map("n", "<leader>d", "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
-  { desc = "Buffer Diagnostics (Trouble)" })
+map(
+  "n",
+  "<leader>d",
+  "<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
+  { desc = "Buffer Diagnostics (Trouble)" }
+)
 map("n", "<leader>D", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Workspace Diagnostics (Trouble)" })
 
 -- Move between buffers
@@ -40,12 +44,12 @@ map("n", "bl", ":blast<cr>", { desc = "Last Buffer" })
 local format_on_save = true
 map("n", "<leader>tf", function()
   format_on_save = not format_on_save
-  require("conform").setup({
+  require("conform").setup {
     format_on_save = format_on_save and {
       timeout_ms = 500,
       lsp_fallback = true,
     } or false,
-  })
+  }
   fn.notify(
     format_on_save and "Format on save enabled" or "Format on save disabled",
     format_on_save and vim.log.levels.INFO or vim.log.levels.WARN,
@@ -54,16 +58,16 @@ map("n", "<leader>tf", function()
 end, { desc = "Toggle Format on Save" })
 
 -- Toggle nvim-tree
-map('n', '<c-b>', ':NvimTreeToggle<cr>', { desc = "Toggle NvimTree" })
-map('n', '<c-f>', ':NvimTreeFindFile<cr>', { desc = "Find File in NvimTree" })
+map("n", "<c-b>", ":NvimTreeToggle<cr>", { desc = "Toggle NvimTree" })
+map("n", "<c-f>", ":NvimTreeFindFile<cr>", { desc = "Find File in NvimTree" })
 
 -- Undo/Redo
 map({ "n", "i" }, "<C-z>", "<cmd>u<cr>", { desc = "Undo" })
 map({ "n", "i" }, "<C-S-z>", "<cmd>redo<cr>", { desc = "Redo" })
 
 -- move lines with <c-j> and <c-k>
-map("n", "<c-Up>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
-map("n", "<c-Down>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
+-- map("n", "<S-j>", "<cmd>m .+1<cr>==", { desc = "Move line down" })
+-- map("n", "<S-k>", "<cmd>m .-2<cr>==", { desc = "Move line up" })
 
 -- Save
 map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save" })
@@ -89,7 +93,7 @@ end, { desc = "LazyGit (Floating)" })
 -- Snacks Inlay Hints
 map("n", "<leader>ih", function()
   local bufnr = vim.api.nvim_get_current_buf()
-  local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+  local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = bufnr }
   vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
   fn.notify(
     not enabled and "Inlay hints enabled" or "Inlay hints disabled",
@@ -119,7 +123,9 @@ map("n", "<leader>km", function()
   require("snacks").picker.keymaps()
 end, { desc = "Show Keymaps" })
 
-map("n", ";sh", function() require("snacks").picker.help() end, { desc = "Help Pages" })
+map("n", ";sh", function()
+  require("snacks").picker.help()
+end, { desc = "Help Pages" })
 
 -- File Path Operations
 map("n", "<leader>cf", "<cmd>let @+ = expand('%:t')<cr>", { desc = "Copy File Name" })
@@ -128,7 +134,7 @@ map("n", "<leader>cp", "<cmd>let @+ = expand('%:p')<cr>", { desc = "Copy Absolut
 
 -- Which-Key
 map("n", "<leader>?", function()
-  require("which-key").show({ global = false })
+  require("which-key").show { global = false }
 end, { desc = "Buffer Local Keymaps (which-key)" })
 
 -- Word Navigation
@@ -151,18 +157,10 @@ map("n", "<leader>tw", function()
   local enabled = require("snacks").words.is_enabled()
   if enabled then
     require("snacks").words.disable()
-    fn.notify(
-      "Word references disabled",
-      vim.log.levels.WARN,
-      "Word Module"
-    )
+    fn.notify("Word references disabled", vim.log.levels.WARN, "Word Module")
   else
     require("snacks").words.enable()
-    fn.notify(
-      "Word references enabled",
-      vim.log.levels.INFO,
-      "Word Module"
-    )
+    fn.notify("Word references enabled", vim.log.levels.INFO, "Word Module")
   end
 end, { desc = "Toggle Word References" })
 
@@ -182,75 +180,51 @@ map("n", "<leader>ts", function()
   if scroll_enabled then
     require("snacks").scroll.disable()
     scroll_enabled = false
-    fn.notify(
-      "Smooth scrolling disabled",
-      vim.log.levels.WARN,
-      "Scroll"
-    )
+    fn.notify("Smooth scrolling disabled", vim.log.levels.WARN, "Scroll")
   else
     require("snacks").scroll.enable()
     scroll_enabled = true
-    fn.notify(
-      "Smooth scrolling enabled",
-      vim.log.levels.INFO,
-      "Scroll"
-    )
+    fn.notify("Smooth scrolling enabled", vim.log.levels.INFO, "Scroll")
   end
 end, { desc = "Toggle Smooth Scrolling" })
 
 -- Show current buffer filetype
 map("n", "<leader>fy", function()
   local filetype = vim.bo.filetype
-  fn.notify(
-    filetype ~= "" and filetype or "No filetype detected",
-    vim.log.levels.INFO,
-    "Filetype"
-  )
+  fn.notify(filetype ~= "" and filetype or "No filetype detected", vim.log.levels.INFO, "Filetype")
 end, { desc = "Show Current Filetype" })
 
 -- Live Preview
 map("n", "<leader>lp", function()
-  vim.cmd("LivePreview start")
-  fn.notify(
-    "Live Preview started at http://localhost:5500",
-    vim.log.levels.INFO,
-    "Live Preview",
-    3000
-  )
+  vim.cmd "LivePreview start"
+  fn.notify("Live Preview started at http://localhost:5500", vim.log.levels.INFO, "Live Preview", 3000)
 end, { desc = "Start Live Preview" })
 
 map("n", "<leader>lP", function()
-  vim.cmd("LivePreview close")
-  fn.notify(
-    "Live Preview server closed",
-    vim.log.levels.WARN,
-    "Live Preview"
-  )
+  vim.cmd "LivePreview close"
+  fn.notify("Live Preview server closed", vim.log.levels.WARN, "Live Preview")
 end, { desc = "Close Live Preview" })
 map("n", "<leader>lf", "<cmd>LivePreview pick<cr>", { desc = "Pick File to Preview" })
 
 -- JavaScript Runner
 map("n", "<leader>jr", function()
-  vim.cmd("w")
-  local term = fn.execute_horizontal_terminal("node " .. vim.fn.shellescape(vim.fn.expand("%:p")))
+  vim.cmd "w"
+  local term = fn.execute_horizontal_terminal("node " .. vim.fn.shellescape(vim.fn.expand "%:p"))
   term:toggle()
-  fn.notify(
-    "Running " .. vim.fn.expand("%:t"),
-    vim.log.levels.INFO,
-    "JavaScript Runner"
-  )
+  fn.notify("Running " .. vim.fn.expand "%:t", vim.log.levels.INFO, "JavaScript Runner")
 end, { desc = "Run JavaScript in Terminal" })
 
 -- TypeScript Compiler
 map("n", "<leader>tc", function()
-  vim.cmd("w")
-  local term = fn.execute_horizontal_terminal("tsc " .. vim.fn.shellescape(vim.fn.expand("%:p")))
+  vim.cmd "w"
+  local term = fn.execute_horizontal_terminal("tsc " .. vim.fn.shellescape(vim.fn.expand "%:p"))
   term:toggle()
-  fn.notify(
-    "Compiling " .. vim.fn.expand("%:t"),
-    vim.log.levels.INFO,
-    "TypeScript Compiler"
-  )
+  fn.notify("Compiling " .. vim.fn.expand "%:t", vim.log.levels.INFO, "TypeScript Compiler")
 end, { desc = "Compile TypeScript" })
 
--- multi cursor sele
+-- Multi-cursor: <leader>m to create selection for selected text or word under cursor
+map("n", "<leader>m", function()
+  vim.cmd('normal! viw')
+  vim.cmd('MCstart')
+end, { desc = "Create a selection for word under the cursor" })
+map("v", "<leader>m", "<cmd>MCstart<cr>", { desc = "Create a selection for selected text" })

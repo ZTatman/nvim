@@ -6,13 +6,13 @@
 local M = {}
 
 M.base46 = {
-  theme = "doomchad", -- default theme
+  theme = "material-darker", -- default theme
   hl_add = {},
   hl_override = {},
   integrations = {},
   changed_themes = {},
   transparency = false,
-  theme_toggle = { "doomchad", "one_light" },
+  theme_toggle = { "material-darker", "one_light" },
 }
 
 -- M.mason = {

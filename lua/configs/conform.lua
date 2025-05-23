@@ -24,7 +24,7 @@ local options = {
   -- Customize formatters
   formatters = {
     prettier = {
-      prepend_args = { "--single-quote", "--jsx-single-quote" },
+      prepend_args = { "--single-quote", "--jsx-single-quote", "--print-width 120", "--arrow-parens avoid" },
     },
   },
 }
