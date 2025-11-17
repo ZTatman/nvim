@@ -1,4 +1,14 @@
 return {
+  -- mini.icons - Icon support for which-key and other plugins
+  {
+    "echasnovski/mini.icons",
+    version = false,
+    lazy = false,
+    config = function()
+      require("mini.icons").setup()
+    end,
+  },
+
   -- Snacks
   {
     "folke/snacks.nvim",
@@ -18,13 +28,13 @@ return {
       word_ = {
         enabled = true,
         config = {
-          debounce = 200, -- time in ms to wait before updating
-          notify_jump = false, -- show a notification when jumping
-          notify_end = true, -- show a notification when reaching the end
-          foldopen = true, -- open folds after jumping
-          jumplist = true, -- set jump point before jumping
+          debounce = 200,            -- time in ms to wait before updating
+          notify_jump = false,       -- show a notification when jumping
+          notify_end = true,         -- show a notification when reaching the end
+          foldopen = true,           -- open folds after jumping
+          jumplist = true,           -- set jump point before jumping
           modes = { "n", "i", "c" }, -- modes to show references
-          filter = function(buf) -- what buffers to enable `snacks.words`
+          filter = function(buf)     -- what buffers to enable `snacks.words`
             return vim.g.snacks_words ~= false and vim.b[buf].snacks_words ~= false
           end,
         },
@@ -45,8 +55,8 @@ return {
           -- what buffers to animate
           filter = function(buf)
             return vim.g.snacks_scroll ~= false
-              and vim.b[buf].snacks_scroll ~= false
-              and vim.bo[buf].buftype ~= "terminal"
+                and vim.b[buf].snacks_scroll ~= false
+                and vim.bo[buf].buftype ~= "terminal"
           end,
         },
       },
@@ -77,26 +87,50 @@ return {
   -- Trouble
   {
     "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle" },
+    cmd = { "Trouble" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      position = "bottom",
-      height = 10,
-      mode = "workspace_diagnostics",
-      use_diagnostic_signs = true,
-      action_keys = {
-        close = "q",
-        cancel = "<esc>",
-        refresh = "r",
-        jump = { "<cr>", "<tab>" },
-        toggle_mode = "m",
-        toggle_preview = "P",
-        preview = "p",
-        close_folds = { "zM", "zm" },
-        open_folds = { "zR", "zr" },
-        toggle_fold = { "zA", "za" },
-        previous = "k",
-        next = "j",
+      -- Trouble v3 configuration
+      auto_close = false,
+      auto_open = false,
+      auto_preview = true,
+      auto_refresh = true,
+      focus = true,
+      keys = {
+        ["?"] = "help",
+        r = "refresh",
+        R = "toggle_refresh",
+        q = "close",
+        o = "jump_close",
+        ["<esc>"] = "cancel",
+        ["<cr>"] = "jump",
+        ["<2-leftmouse>"] = "jump",
+        ["<c-s>"] = "jump_split",
+        ["<c-v>"] = "jump_vsplit",
+        ["}"] = "next",
+        ["]]"] = "next",
+        ["{"] = "prev",
+        ["[["] = "prev",
+        dd = "delete",
+        d = { action = "delete", mode = "v" },
+        i = "inspect",
+        p = "preview",
+        P = "toggle_preview",
+        zo = "fold_open",
+        zO = "fold_open_recursive",
+        zc = "fold_close",
+        zC = "fold_close_recursive",
+        za = "fold_toggle",
+        zA = "fold_toggle_recursive",
+        zm = "fold_more",
+        zM = "fold_close_all",
+        zr = "fold_reduce",
+        zR = "fold_open_all",
+        zx = "fold_update",
+        zX = "fold_update_all",
+        zn = "fold_disable",
+        zN = "fold_enable",
+        zi = "fold_toggle_enable",
       },
     },
   },
@@ -139,8 +173,8 @@ return {
       },
       signs_staged_enable = true,
       signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-      numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-      linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+      numhl = false,     -- Toggle with `:Gitsigns toggle_numhl`
+      linehl = false,    -- Toggle with `:Gitsigns toggle_linehl`
       word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
       watch_gitdir = {
         follow_files = true,
@@ -159,7 +193,7 @@ return {
       current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
       sign_priority = 6,
       update_debounce = 100,
-      status_formatter = nil, -- Use default
+      status_formatter = nil,  -- Use default
       max_file_length = 40000, -- Disable if file is longer than this (in lines)
       preview_config = {
         -- Options passed to nvim_open_win
@@ -179,11 +213,11 @@ return {
         -- Gitsigns hunks
         map("n", "[h", ":Gitsigns prev_hunk<cr><cr>", "Git: Previous Hunk")
         map("n", "]h", ":Gitsigns next_hunk<cr><cr>", "Git: Next Hunk")
-        map("n", "<leader>ph", ":Gitsigns preview_hunk<cr>", "Git: Preview Hunk")
-        map("n", "<leader>pH", ":Gitsigns preview_hunk_inline<cr>", "Git: Preview Hunk Inline")
-        map("n", "<leader>vh", ":Gitsigns select_hunk<cr>", "Git: Select Hunk")
-        map("n", "<leader>sh", ":Gitsigns stage_hunk<cr>", "Git: Stage Hunk")
-        map("n", "<leader>rh", ":Gitsigns reset_hunk<cr>", "Git: Reset Hunk")
+        map("n", "<leader>gh", ":Gitsigns preview_hunk<cr>", "Git: Preview Hunk")
+        map("n", "<leader>gH", ":Gitsigns preview_hunk_inline<cr>", "Git: Preview Hunk Inline")
+        map("n", "<leader>gv", ":Gitsigns select_hunk<cr>", "Git: Select Hunk")
+        map("n", "<leader>gs", ":Gitsigns stage_hunk<cr>", "Git: Stage Hunk")
+        map("n", "<leader>gr", ":Gitsigns reset_hunk<cr>", "Git: Reset Hunk")
 
         -- Additional useful keymaps
         map("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<cr>", "Git: Toggle Line Blame")
@@ -193,18 +227,46 @@ return {
     },
   },
 
+  -- nvim-autopairs
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("nvim-autopairs").setup {
+        check_ts = true,      -- Enable treesitter integration
+        ts_config = {
+          lua = { "string" }, -- Don't add pairs in lua string treesitter nodes
+          javascript = { "template_string" },
+          java = false,       -- Don't check treesitter on java
+        },
+        disable_filetype = { "TelescopePrompt", "vim" },
+        fast_wrap = {
+          map = "<M-e>",
+          chars = { "{", "[", "(", '"', "'" },
+          pattern = [=[[%'%"%>%]%)%}%,]]=],
+          end_key = "$",
+          keys = "qwertyuiopzxcvbnmasdfghjkl",
+          check_comma = true,
+          highlight = "Search",
+          highlight_grey = "Comment",
+        },
+      }
+    end,
+  },
+
   -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-buffer", -- Buffer completions
-      "hrsh7th/cmp-path", -- Path completions
-      "hrsh7th/cmp-nvim-lsp", -- LSP completions
-      "hrsh7th/cmp-nvim-lua", -- Lua completions
-      "saadparwaiz1/cmp_luasnip", -- Snippet completions
-      "L3MON4D3/LuaSnip", -- Snippet engine
+      "hrsh7th/cmp-buffer",           -- Buffer completions
+      "hrsh7th/cmp-path",             -- Path completions
+      "hrsh7th/cmp-nvim-lsp",         -- LSP completions
+      "hrsh7th/cmp-nvim-lua",         -- Lua completions
+      "saadparwaiz1/cmp_luasnip",     -- Snippet completions
+      "L3MON4D3/LuaSnip",             -- Snippet engine
       "rafamadriz/friendly-snippets", -- Snippet collection
+      "windwp/nvim-autopairs",        -- Autopairs integration
     },
     config = function()
       local cmp = require "cmp"
@@ -212,6 +274,10 @@ return {
 
       -- Load snippets
       require("luasnip.loaders.from_vscode").lazy_load()
+
+      -- Integrate autopairs with cmp
+      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       cmp.setup {
         snippet = {
@@ -354,7 +420,7 @@ return {
   {
     "mrcjkb/rustaceanvim",
     version = "^6", -- Recommended
-    lazy = false, -- This plugin is already lazy
+    lazy = false,   -- This plugin is already lazy
   },
 
   -- Crates
